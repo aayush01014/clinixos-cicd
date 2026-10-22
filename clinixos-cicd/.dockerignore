@@ -1,0 +1,14 @@
+**/node_modules
+**/dist
+.git
+.github
+**/*.sqlite
+**/*.sqlite-*
+**/.env
+**/.env.*
+**/*.log
+**/*.tsbuildinfo
+**/*.docx
+**/*.html
+!client/index.html
+server/uploads

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClinixOS - COCOMO Cost & Effort Estimation Slide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* 16:9 Presentation Canvas */
+    .slide-canvas {
+      width: 960px;
+      height: 540px;
+      background: #faf8f2; /* Cream background matching user slide */
+      padding: 42px 55px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #10376d;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .slide-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #10376d;
+      margin-bottom: 20px;
+    }
+
+    /* Top Two Formula Cards */
+    .formula-row {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .formula-card {
+      background: #0d4b94;
+      border-radius: 10px;
+      color: #ffffff;
+      padding: 16px 20px;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(13, 75, 148, 0.25);
+    }
+
+    /* Methods Section */
+    .methods-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      color: #10376d;
+    }
+
+    .method-block {
+      background: rgba(16, 55, 109, 0.03);
+      border-left: 4px solid #10376d;
+      padding: 8px 14px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .method-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: #0d4b94;
+      margin-bottom: 4px;
+    }
+
+    .method-stats {
+      font-size: 14.5px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .method-stats span {
+      color: #0d4b94;
+      font-weight: 700;
+    }
+
+    .toolbar {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-canvas">
+    <h1 class="slide-title">COCOMO Cost &amp; Effort Estimation</h1>
+    <div class="slide-subtitle">Basic COCOMO Estimates (Organic &amp; Semi-Detached Models):</div>
+
+    <!-- Top Formula Cards -->
+    <div class="formula-row">
+      <div class="formula-card">
+        Effort E = 2.4 &times; (KLOC)<sup>1.05</sup>
+      </div>
+      <div class="formula-card">
+        Development Time Tdev = 2.5 &times; (E)<sup>0.38</sup>
+      </div>
+    </div>
+
+    <!-- Methods Content -->
+    <div class="methods-container">
+      <!-- Method 1 -->
+      <div class="method-block">
+        <div class="method-heading">Method 1: Direct Physical Codebase (10.834 KLOC across 60 Files):</div>
+        <div class="method-stats">
+          &bull; <strong>Effort:</strong> <span>29.5 person-months</span> (Organic) | <span>44.3 person-months</span> (Semi-Detached)<br>
+          &bull; <strong>Development Time:</strong> <span>9.05 months</span> (&approx; 9 months)<br>
+          &bull; <strong>Team Size:</strong> <span>3.26 persons</span> (&approx; 3 to 4 student team members)
+        </div>
+      </div>
+
+      <!-- Method 2 -->
+      <div class="method-block">
+        <div class="method-heading">Method 2: FP-Derived Equivalent Size (Realistic Academic Baseline):</div>
+        <div class="method-stats">
+          &bull; <strong>Equivalent LOC:</strong> <span>255.30 FP &times; 42.4 LOC/FP = 10,834 LOC (10.834 KLOC)</span><br>
+          &bull; <strong>Effort:</strong> <span>29.5 person-months</span> (Organic baseline)<br>
+          &bull; <strong>Development Time:</strong> <span>9.05 months</span><br>
+          &bull; <strong>Team Size:</strong> <span>3.26 persons (&approx; 3 to 4 team members)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">Print / Save Slide as PDF</button>
+  </div>
+
+</body>
+</html>

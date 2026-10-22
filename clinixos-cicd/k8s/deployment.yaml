@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinixos
+spec:
+  replicas: 1
+  # SQLite uses one writer instance; stop the old pod before mounting its data.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: clinixos
+  template:
+    metadata:
+      labels:
+        app: clinixos
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: clinixos
+          image: CLINIXOS_IMAGE
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: clinixos-secrets
+                  key: JWT_SECRET
+            # Academic demo accounts only; disable for a real deployment.
+            - name: SEED_DEMO
+              value: "true"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            periodSeconds: 15
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: clinixos-data

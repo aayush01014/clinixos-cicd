@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClinixOS - Software Size Estimation Slide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* 16:9 Slide Canvas */
+    .slide-canvas {
+      width: 960px;
+      height: 540px;
+      background: #faf8f2; /* warm cream background matching user's slide */
+      border: 24px solid #10376d; /* solid dark blue border */
+      border-radius: 8px;
+      padding: 45px 50px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #10376d;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .slide-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: #10376d;
+      margin-bottom: 30px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+
+    .stat-card {
+      background: #0d4b94; /* vibrant blue matching user's cards */
+      border-radius: 12px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px 24px;
+      box-shadow: 0 8px 18px rgba(13, 75, 148, 0.25);
+    }
+
+    .card-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+    }
+
+    .card-subtext {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .highlight-card {
+      background: #08346e; /* slightly deeper navy for total */
+      border: 2px solid #38bdf8;
+    }
+
+    .highlight-card .card-label {
+      color: #38bdf8;
+      font-size: 22px;
+    }
+
+    .toolbar {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slide Preview -->
+  <div class="slide-canvas" id="slide">
+    <h1 class="slide-title">Software Size Estimation &<br>Function Point Analysis</h1>
+    <div class="slide-subtitle">Lines of Code (LOC) Summary:</div>
+
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <div class="stat-card">
+        <div class="card-label">Backend (Node.js & Express): 4,766 LOC</div>
+        <div class="card-subtext">34 REST Controllers, Services, Telemetry WebSocket & Auth</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="stat-card">
+        <div class="card-label">Frontend (React & CSS): 5,720 LOC</div>
+        <div class="card-subtext">13 Clinical Portals, React Views, Modals & Design System</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="stat-card">
+        <div class="card-label">Database Schema (SQLite DDL): ~348 LOC</div>
+        <div class="card-subtext">10 Relational Tables, Medical Catalogs & Migration Scripts</div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="stat-card highlight-card">
+        <div class="card-label">Total Physical LOC: 10,834 LOC (10.834 KLOC)</div>
+        <div class="card-subtext">Comprehensive 60 Source Implementation Files</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">Print / Save Slide as PDF</button>
+  </div>
+
+</body>
+</html>

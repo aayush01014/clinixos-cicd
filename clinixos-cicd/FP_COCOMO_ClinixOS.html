@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Function Point Analysis & COCOMO Estimation Report — ClinixOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --slate-dark: #0f172a;
+      --slate-text: #334155;
+      --slate-muted: #64748b;
+      --bg-page: #f8fafc;
+      --border-color: #e2e8f0;
+      --accent-green: #059669;
+      --accent-badge: #dbeafe;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #e2e8f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--slate-dark);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .toolbar {
+      background: #ffffff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      width: 100%;
+      border: 1px solid var(--border-color);
+    }
+
+    .toolbar-info {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--slate-dark);
+    }
+    .toolbar-info span {
+      color: var(--primary);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #172554;
+      transform: translateY(-1px);
+    }
+
+    /* Document Container */
+    .doc-page {
+      width: 900px;
+      background: #ffffff;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      padding: 65px 75px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Header Section */
+    .doc-header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .doc-title-area h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .doc-title-area p {
+      font-size: 14px;
+      color: var(--slate-muted);
+      font-weight: 500;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border: 1px solid var(--primary-border);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Meta Table */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      padding: 18px 24px;
+      border-radius: 8px;
+      margin-bottom: 36px;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-label {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.75px;
+      color: var(--slate-muted);
+      font-weight: 700;
+    }
+    .meta-value {
+      font-size: 14.5px;
+      color: var(--slate-dark);
+      font-weight: 600;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    h2.section-heading {
+      font-size: 17.5px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid var(--border-color);
+    }
+
+    p.lead-text {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--slate-text);
+      margin-bottom: 16px;
+    }
+
+    /* Tables */
+    table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 18px;
+      font-size: 13.5px;
+    }
+    table.doc-table th {
+      background: #1e3a8a;
+      color: #ffffff;
+      padding: 10px 14px;
+      font-weight: 600;
+      text-align: left;
+      font-size: 12.5px;
+      letter-spacing: 0.2px;
+    }
+    table.doc-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--slate-text);
+      line-height: 1.5;
+    }
+    table.doc-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    table.doc-table tr.total-row td {
+      font-weight: 700;
+      background: #e2e8f0;
+      color: var(--primary);
+      border-top: 2px solid #cbd5e1;
+    }
+    .text-center { text-align: center !important; }
+    .text-right { text-align: right !important; }
+
+    /* Callout Card */
+    .metric-card {
+      background: var(--primary-light);
+      border: 1.5px solid var(--primary-border);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 18px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .metric-subitem {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .metric-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate-muted);
+      text-transform: uppercase;
+    }
+    .metric-number {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .metric-caption {
+      font-size: 12px;
+      color: var(--slate-text);
+    }
+
+    .formula-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--primary);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--slate-dark);
+      line-height: 1.8;
+    }
+
+    .gsc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Q&A Block */
+    .qa-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+    }
+    .qa-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .qa-body {
+      font-size: 13.5px;
+      color: var(--slate-text);
+      line-height: 1.6;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .toolbar {
+        display: none;
+      }
+      .doc-page {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        padding: 20px;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-info">
+      Formal Documentation: <span>ClinixOS FP Analysis & COCOMO Estimation</span>
+    </div>
+    <div class="btn-group">
+      <button class="btn" onclick="window.print()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        Print / Save PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="doc-page">
+    <div class="doc-header">
+      <div class="doc-title-area">
+        <h1>Function Point Analysis & COCOMO Cost Estimation Report</h1>
+        <p>Software Engineering Metrics & Quantitative Cost Modeling</p>
+      </div>
+      <div class="badge">Official Technical Report</div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Project Name</span>
+        <span class="meta-value">ClinixOS — Hospital Management System</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Technical Stack</span>
+        <span class="meta-value">React 18 + TypeScript + Node.js + SQLite</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Total Code Size</span>
+        <span class="meta-value">10,834 LOC (10.834 KLOC across 60 Files)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Estimation Model</span>
+        <span class="meta-value">IFPUG Function Points & Basic COCOMO</span>
+      </div>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="section">
+      <h2 class="section-heading">1. Source Code Inventory & Physical LOC Breakdown</h2>
+      <p class="lead-text">
+        The source codebase was inventoried across architectural layers. The production system comprises 60 implementation files totaling 10,834 physical lines of code:
+      </p>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th style="width: 14%;">File Type</th>
+            <th style="width: 44%;">Architectural Layer & Purpose</th>
+            <th style="width: 14%;" class="text-center">Files</th>
+            <th style="width: 14%;" class="text-center">Physical LOC</th>
+            <th style="width: 14%;" class="text-center">FP Classification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>.tsx</strong></td>
+            <td>Frontend Clinical Portals, React Views & Interactive Modals</td>
+            <td class="text-center">13</td>
+            <td class="text-center">5,281</td>
+            <td class="text-center">ILF</td>
+          </tr>
+          <tr>
+            <td><strong>.ts</strong></td>
+            <td>Backend Controllers, REST Services, Auth & Routing APIs</td>
+            <td class="text-center">34</td>
+            <td class="text-center">4,766</td>
+            <td class="text-center">EI / EO</td>
+          </tr>
+          <tr>
+            <td><strong>.css</strong></td>
+            <td>Clinical Glassmorphism Design System & CSS Variables</td>
+            <td class="text-center">2</td>
+            <td class="text-center">416</td>
+            <td class="text-center">EIF</td>
+          </tr>
+          <tr>
+            <td><strong>.js</strong></td>
+            <td>Vite Bundler Configuration & Bootstrapper</td>
+            <td class="text-center">1</td>
+            <td class="text-center">9</td>
+            <td class="text-center">EI</td>
+          </tr>
+          <tr>
+            <td><strong>.html</strong></td>
+            <td>Single Page Application (SPA) Root Shell</td>
+            <td class="text-center">1</td>
+            <td class="text-center">14</td>
+            <td class="text-center">EO</td>
+          </tr>
+          <tr>
+            <td><strong>.json</strong></td>
+            <td>Package Manifests, TypeScript Configs & Schemas</td>
+            <td class="text-center">8</td>
+            <td class="text-center">148</td>
+            <td class="text-center">EQ</td>
+          </tr>
+          <tr>
+            <td><strong>.sqlite</strong></td>
+            <td>Embedded Relational Database (10 Tables)</td>
+            <td class="text-center">1</td>
+            <td class="text-center">~200</td>
+            <td class="text-center">ILF</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="2">TOTAL CODEBASE INVENTORY</td>
+            <td class="text-center">60</td>
+            <td class="text-center">10,834</td>
+            <td class="text-center">10.834 KLOC</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <h2 class="section-heading">2. Unadjusted Function Point (UFP) Calculation</h2>
+      <p class="lead-text">
+        Applying standard IFPUG counting guidelines with average complexity weights for each of the five functional categories:
+      </p>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Component Type</th>
+            <th style="width: 44%;">ClinixOS Modules & Description</th>
+            <th style="width: 12%;" class="text-center">Count</th>
+            <th style="width: 13%;" class="text-center">Weight</th>
+            <th style="width: 13%;" class="text-center">UFP Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ILF</strong><br><small style="color:var(--slate-muted)">Internal Logical Files</small></td>
+            <td>Patients, Appointments, Beds, Doctors, Prescriptions, Inventory, Billing, Lab Reports, Users, Audit Logs</td>
+            <td class="text-center">10</td>
+            <td class="text-center">10</td>
+            <td class="text-center">100</td>
+          </tr>
+          <tr>
+            <td><strong>EIF</strong><br><small style="color:var(--slate-muted)">Ext. Interface Files</small></td>
+            <td>Browser LocalStorage Session State, Diagnostic Export JSON Schemas</td>
+            <td class="text-center">2</td>
+            <td class="text-center">7</td>
+            <td class="text-center">14</td>
+          </tr>
+          <tr>
+            <td><strong>EI</strong><br><small style="color:var(--slate-muted)">External Inputs</small></td>
+            <td>Register Patient, Book Appt, Bed Admission, Prescribe Medicine, Lab Order, Generate Invoice, Login, Role Change, Update Bed</td>
+            <td class="text-center">9</td>
+            <td class="text-center">4</td>
+            <td class="text-center">36</td>
+          </tr>
+          <tr>
+            <td><strong>EO</strong><br><small style="color:var(--slate-muted)">External Outputs</small></td>
+            <td>Discharge Summary PDF, Billing Invoice Receipt, Prescription Slip, Lab Diagnostic Report</td>
+            <td class="text-center">4</td>
+            <td class="text-center">5</td>
+            <td class="text-center">20</td>
+          </tr>
+          <tr>
+            <td><strong>EQ</strong><br><small style="color:var(--slate-muted)">External Inquiries</small></td>
+            <td>Patient Search, Bed Grid, Doctor Roster, Stock, Bill Status, Vitals History, Lab Results, Dept Query, Ward Filter, Medicine Lookup, Audit History, Revenue Summary, User Directory</td>
+            <td class="text-center">13</td>
+            <td class="text-center">4</td>
+            <td class="text-center">52</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="4">TOTAL UNADJUSTED FUNCTION POINTS (UFP)</td>
+            <td class="text-center" style="font-size:15px; color:#1e3a8a;">222</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="formula-box">
+        UFP = Σ [ Functional Unit Count × Average Complexity Weight ]<br>
+        UFP = (10 × 10) + (2 × 7) + (9 × 4) + (4 × 5) + (13 × 4)<br>
+        <strong>UFP = 100 + 14 + 36 + 20 + 52 = 222 Points</strong>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <h2 class="section-heading">3. General System Characteristics (GSC) & Final Function Points</h2>
+      <p class="lead-text">
+        The 14 General System Characteristics evaluated on a standard influence scale from 0 (No Influence) to 5 (Strong Influence):
+      </p>
+
+      <div class="gsc-grid">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Characteristic</th><th class="text-center">Rating</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1. Data Communications</td><td class="text-center"><strong>4</strong></td></tr>
+            <tr><td>2. Distributed Data Processing</td><td class="text-center"><strong>3</strong></td></tr>
+            <tr><td>3. Performance Objectives</td><td class="text-center"><strong>4</strong></td></tr>
+            <tr><td>4. Heavily Used Configuration</td><td class="text-center"><strong>4</strong></td></tr>
+            <tr><td>5. Transaction Rate</td><td class="text-center"><strong>4</strong></td></tr>
+            <tr><td>6. On-line Data Entry</td><td class="text-center"><strong>5</strong></td></tr>
+            <tr><td>7. End-User Efficiency</td><td class="text-center"><strong>4</strong></td></tr>
+          </tbody>
+        </table>
+
+        <table class="doc-table">
+          <thead>
+            <tr><th>Characteristic</th><th class="text-center">Rating</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>8. On-line Update</td><td class="text-center"><strong>4</strong></td></tr>
+            <tr><td>9. Complex Processing</td><td class="text-center"><strong>3</strong></td></tr>
+            <tr><td>10. Reusability</td><td class="text-center"><strong>3</strong></td></tr>
+            <tr><td>11. Installation Ease</td><td class="text-center"><strong>3</strong></td></tr>
+            <tr><td>12. Operational Ease</td><td class="text-center"><strong>4</strong></td></tr>
+            <tr><td>13. Multiple Sites</td><td class="text-center"><strong>2</strong></td></tr>
+            <tr><td>14. Facilitate Change</td><td class="text-center"><strong>3</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="formula-box">
+        Total Degree of Influence (TDI) = Σ Fi = 4+3+4+4+4+5+4+4+3+3+3+4+2+3 = 50<br>
+        Value Adjustment Factor (VAF)  = 0.65 + (0.01 × TDI) = 0.65 + (0.01 × 50) = <strong>1.15</strong><br>
+        Adjusted Function Points (FP)   = UFP × VAF = 222 × 1.15 = <strong>255.30 FP</strong>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <h2 class="section-heading">4. COCOMO Cost & Effort Estimation</h2>
+      <p class="lead-text">
+        <strong>Model Mode:</strong> Semi-Detached Mode (Coefficients: a = 3.0, b = 1.12, c = 2.5, d = 0.35)<br>
+        <strong>Technical Rationale:</strong> ClinixOS operates in a healthcare environment requiring strict patient safety, real-time bed tracking, multi-role clinical permissions, and relational ACID persistence. Teams possess intermediate experience with mixed software/hardware constraints.
+      </p>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Metric</th>
+            <th style="width: 22%;">COCOMO Formula</th>
+            <th style="width: 28%;">Calculation</th>
+            <th style="width: 28%;" class="text-center">Estimated Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Effort (E)</strong></td>
+            <td>a × (KLOC)<sup>b</sup></td>
+            <td>3.0 × (10.834)<sup>1.12</sup> = 3.0 × 14.78</td>
+            <td class="text-center"><strong>44.34 Person-Months</strong> (~44.3 PM)</td>
+          </tr>
+          <tr>
+            <td><strong>Development Time (Tdev)</strong></td>
+            <td>c × (E)<sup>d</sup></td>
+            <td>2.5 × (44.34)<sup>0.35</sup> = 2.5 × 3.96</td>
+            <td class="text-center"><strong>9.90 Months</strong> (~9.9 Months)</td>
+          </tr>
+          <tr>
+            <td><strong>Average Staff Size (SS)</strong></td>
+            <td>E / Tdev</td>
+            <td>44.34 / 9.90</td>
+            <td class="text-center"><strong>4.48 Persons</strong> (~4 to 5 Developers)</td>
+          </tr>
+          <tr>
+            <td><strong>Productivity</strong></td>
+            <td>KLOC / E</td>
+            <td>10.834 / 44.34</td>
+            <td class="text-center"><strong>0.244 KLOC / Month</strong> (244 LOC/PM)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="metric-card">
+        <div class="metric-subitem">
+          <div class="metric-title">Effort</div>
+          <div class="metric-number">44.3 PM</div>
+          <div class="metric-caption">Person-Months total</div>
+        </div>
+        <div class="metric-subitem">
+          <div class="metric-title">Schedule</div>
+          <div class="metric-number">9.9 Mos</div>
+          <div class="metric-caption">Development duration</div>
+        </div>
+        <div class="metric-subitem">
+          <div class="metric-title">Team Size</div>
+          <div class="metric-number">4.5</div>
+          <div class="metric-caption">Full-time engineers</div>
+        </div>
+        <div class="metric-subitem">
+          <div class="metric-title">Function Points</div>
+          <div class="metric-number">255.3</div>
+          <div class="metric-caption">Adjusted FP value</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section">
+      <h2 class="section-heading">5. Technical Discussion & Viva Questions</h2>
+
+      <div class="qa-card">
+        <div class="qa-title">Q1: Why was Semi-Detached mode selected instead of Organic mode?</div>
+        <div class="qa-body">Hospital management software mandates high reliability, real-time bed inventory tracking, doctor/nurse workflow synchronization, and clinical data integrity. Unlike small standalone organic utility tools, ClinixOS involves intermediate complexity, rigorous domain requirements, and multi-user transactional workflows.</div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-title">Q2: What is the primary difference between physical LOC and Function Points?</div>
+        <div class="qa-body">LOC (Lines of Code) measures the physical size of source code, which varies heavily based on programming language, formatting, and syntax. Function Points (FP) measure the actual business functionality and transactional utility delivered to end users, completely independent of the underlying implementation language. For ClinixOS, 10,834 LOC translates to 255.30 Function Points (~42 LOC/FP).</div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-title">Q3: How does SQLite impact estimation and portability?</div>
+        <div class="qa-body">SQLite operates in-process as a serverless, self-contained relational database file. It eliminates external database server setup, connection pooling, and maintenance overhead, reducing Installation Ease complexity while guaranteeing full ACID transactions across any machine.</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

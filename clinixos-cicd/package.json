@@ -1,0 +1,14 @@
+{
+  "name": "clinixos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ClinixOS - Enterprise Smart Hospital Management System",
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "seed": "cd server && npm run seed",
+    "build": "npm --prefix server run build && npm --prefix client run build",
+    "test": "node --experimental-strip-types tests/clinical_engine.test.ts"
+  }
+}

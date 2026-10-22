@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClinixOS - Function Point Analysis Slide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* 16:9 Presentation Canvas */
+    .slide-canvas {
+      width: 960px;
+      height: 540px;
+      background: #faf8f2; /* Cream background matching user slide */
+      padding: 50px 65px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Bottom left corner dark decorative triangle */
+    .slide-canvas::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 70px 0 0 70px;
+      border-color: transparent transparent transparent #10376d;
+    }
+
+    .slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #10376d;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 30px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      flex: 1;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .fpa-item {
+      padding-bottom: 12px;
+      border-bottom: 2px solid #10376d;
+      margin-bottom: 14px;
+    }
+    .fpa-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17.5px;
+      color: #10376d;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .item-subtext {
+      font-size: 13px;
+      color: #475569;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      margin-top: 3px;
+    }
+
+    .highlight-item {
+      border-bottom: 2.5px solid #0284c7;
+    }
+    .highlight-item .item-text {
+      color: #0369a1;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .final-item {
+      border-bottom: 3px solid #10376d;
+      background: rgba(16, 55, 109, 0.04);
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+    .final-item .item-text {
+      color: #10376d;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .toolbar {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-canvas">
+    <h1 class="slide-title">Function Point Analysis<br>(Unadjusted FP):</h1>
+
+    <div class="content-grid">
+      <!-- Left Column -->
+      <div class="column">
+        <div class="fpa-item">
+          <div class="item-text">Internal Logic Files (ILF): 10 tables &times; 10 = 100 UFP</div>
+          <div class="item-subtext">Patients, Appointments, Beds, Doctors, Rx, Inventory, Bills, Lab, Users, Audit</div>
+        </div>
+
+        <div class="fpa-item">
+          <div class="item-text">External Interface Files (EIF): 2 schemas &times; 7 = 14 UFP</div>
+          <div class="item-subtext">LocalStorage Session Store, Diagnostic Export JSON Schemas</div>
+        </div>
+
+        <div class="fpa-item">
+          <div class="item-text">External Inputs (EI): 9 transactions &times; 4 = 36 UFP</div>
+          <div class="item-subtext">Patient Reg, Book Appt, Bed Admit, Prescribe, Lab Order, Bill, Login, Role, Bed Status</div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="column">
+        <div class="fpa-item">
+          <div class="item-text">External Outputs (EO): 4 reports &times; 5 = 20 UFP</div>
+          <div class="item-subtext">Discharge Summary, Invoice Receipt, Prescription Slip, Lab Diagnostic PDF</div>
+        </div>
+
+        <div class="fpa-item">
+          <div class="item-text">External Queries (EQ): 13 queries &times; 4 = 52 UFP</div>
+          <div class="item-subtext">Patient Search, Bed Grid, Doctor Roster, Stock, Vitals History, Lab Results, Audit Log</div>
+        </div>
+
+        <div class="fpa-item highlight-item">
+          <div class="item-text">Total Unadjusted FP (UFP): 222 UFP</div>
+          <div class="item-subtext">100 (ILF) + 14 (EIF) + 36 (EI) + 20 (EO) + 52 (EQ)</div>
+        </div>
+
+        <div class="fpa-item">
+          <div class="item-text">Value Adjustment Factor (VAF): 0.65 + (0.01 &times; 50 TDI) = 1.15</div>
+          <div class="item-subtext">14 General System Characteristics (TDI = 50)</div>
+        </div>
+
+        <div class="fpa-item final-item">
+          <div class="item-text">Adjusted FP: 222 &times; 1.15 = 255.30 FP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">Print / Save Slide as PDF</button>
+  </div>
+
+</body>
+</html>

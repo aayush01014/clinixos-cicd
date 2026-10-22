@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.sqlite
+*.sqlite-*
+*.tsbuildinfo
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+server/uploads/
