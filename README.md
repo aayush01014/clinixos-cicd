@@ -59,13 +59,46 @@ After successful deployment, the preview service forwards the internal Kubernete
 
 For the second demonstration, edit the visible footer in `client/src/App.tsx`, commit and push it, let SCM polling trigger Jenkins, and show the new image tag and updated footer. The PVC retains data across pod replacements.
 
-## Actual execution record: fill after performing
+## Actual execution record
 
-- GitHub repository URL: pending student entry.
-- AWS region/instance and setup date: pending student entry.
-- First successful Jenkins build and image tag: pending live execution.
-- Second successful build and commit: pending live execution.
-- Visible application change: pending live execution.
-- Screenshot folder/evidence: pending student capture.
+- Deployment date: 23 October 2026.
+- GitHub: https://github.com/aayush01014/clinixos-cicd
+- Docker Hub: https://hub.docker.com/r/andybones10/clinixos
+- AWS: Mumbai (ap-south-1), Ubuntu EC2, m7i-flex.large.
+- Instance name: clinixos-jenkins.
+- Jenkins, Docker and Minikube run on the EC2 instance.
+- First successful pipeline: build #1, image
+  andybones10/clinixos:1-b3fe9a6.
+- Subsequent commits automatically triggered Jenkins through SCM polling.
+- Final theme image published: andybones10/clinixos:4-ec74a8d.
 
-Preparation checks: backend/client TypeScript checks passed and 12 clinical tests passed using the provided dependencies. Full Linux dependency installation, Vite bundling, Docker build and cloud deployment remain to be executed on the target EC2 server. Do not mark the pending execution record complete until those runs succeed.
+## Source change and redeployment
+
+Updated client/src/index.css to replace the original blue-and-white
+appearance with a peach background, teal navigation, orange buttons,
+and restyled cards, forms and tables.
+
+After committing to main, Jenkins checked out the updated source,
+built and tested the application, built and pushed a new Docker image,
+and deployed it to Minikube.
+
+Verification showed a Running pod, an available Deployment, a
+Kubernetes Service and bound persistent storage. The application
+health endpoint returned ONLINE, and the updated dashboard was
+verified in the browser.
+
+## Application access
+
+The Kubernetes Service is forwarded to EC2 loopback port 8081.
+An SSH tunnel provides browser access at http://127.0.0.1:8081.
+Jenkins is accessed through a separate SSH tunnel at
+http://127.0.0.1:18080.
+
+These localhost addresses work while the corresponding SSH tunnels
+are open.
+
+## Evidence
+
+Submission screenshots cover the successful pipeline, console result,
+Kubernetes resources, original and updated dashboards, published
+Docker image, GitHub repository and running AWS instance.
