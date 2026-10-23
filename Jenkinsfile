@@ -10,7 +10,7 @@ pipeline {
   // SCM polling avoids exposing a webhook endpoint to the internet.
   triggers { pollSCM('H/2 * * * *') }
   parameters {
-    string(name: 'DOCKERHUB_USER', defaultValue: 'YOUR_DOCKERHUB_USERNAME', description: 'Your lowercase Docker Hub username')
+    string(name: 'DOCKERHUB_USER', defaultValue: 'andybones10', description: 'Your lowercase Docker Hub username')
   }
   environment {
     KUBECONFIG = '/var/lib/jenkins/.kube/config'
