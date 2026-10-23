@@ -124,7 +124,7 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <footer style={{ borderTop: '1px solid var(--border-glass)', padding: '16px 24px', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.78rem' }}>
-        ClinixOS • Intelligent Hospital Operations Platform
+        ClinixOS • CCA 2 Deployment Version 2
       </footer>
     </div>
   );
