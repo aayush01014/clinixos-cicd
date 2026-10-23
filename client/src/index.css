@@ -425,3 +425,196 @@ footer {
 ::-webkit-scrollbar-thumb {
   background: #c4b5fd;
 }
+/* Peach and Teal Theme */
+:root {
+  --canvas-bg: #fff3e6;
+  --glass-bg: #ffffff;
+  --glass-bg-hover: #fffbf5;
+  --glass-modal: #ffffff;
+  --glass-card-inner: #fff0db;
+
+  --glass-border: #f3d5b5;
+  --glass-border-subtle: #e8c7a3;
+  --glass-border-bright: #fb923c;
+
+  --text-main: #173d3a;
+  --text-secondary: #28534e;
+  --text-muted: #566b65;
+  --text-dim: #687971;
+
+  --cyan-primary: #0f766e;
+  --cyan-vibrant: #14b8a6;
+  --cyan-accent: #0f766e;
+  --blue-primary: #ea580c;
+  --indigo-primary: #0d9488;
+
+  --glass-shadow: 0 10px 24px rgba(120, 70, 20, 0.1);
+}
+
+body {
+  background: #fff3e6;
+}
+
+.ambient-mesh {
+  background:
+    radial-gradient(ellipse at top right, #fed7aa, transparent 55%),
+    linear-gradient(135deg, #fff7ed, #ffedd5 60%, #fef3c7);
+}
+
+.ambient-orb-1 {
+  background: radial-gradient(circle, #fdba74, transparent 70%);
+}
+
+.ambient-orb-2 {
+  background: radial-gradient(circle, #99f6e4, transparent 70%);
+}
+
+/* Teal header with readable white branding */
+.header-container {
+  background: #115e59 !important;
+  border-bottom: 5px solid #fb923c !important;
+  box-shadow: 0 6px 22px rgba(17, 94, 89, 0.2) !important;
+}
+
+.header-container span,
+.header-container p {
+  color: #ffffff !important;
+}
+
+.header-container button:not(.glass-btn) {
+  background: #0f766e !important;
+  color: #ffffff !important;
+  border: 1px solid #5eead4 !important;
+  border-bottom: 3px solid #fb923c !important;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 5px;
+}
+
+.header-container button:not(.glass-btn):hover,
+.header-container button:not(.glass-btn):focus-visible {
+  background: #134e4a !important;
+}
+
+/* White cards with strong teal and orange accents */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid #f3d5b5;
+  border-top: 5px solid #0d9488;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(120, 70, 20, 0.1);
+}
+
+.glass-panel:nth-child(even) {
+  border-top-color: #f97316;
+}
+
+.glass-panel:hover {
+  background: #fffaf2;
+  border-color: #fb923c;
+  box-shadow: 0 14px 30px rgba(120, 70, 20, 0.16);
+}
+
+.glass-panel h2 {
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ffedd5;
+}
+
+/* Orange primary actions */
+.glass-btn {
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  border: 1px solid #c2410c;
+  border-radius: 10px;
+  color: #ffffff !important;
+  padding: 12px 20px;
+  box-shadow: 0 4px 10px rgba(194, 65, 12, 0.2);
+}
+
+.glass-btn:hover {
+  background: linear-gradient(135deg, #ea580c, #9a3412);
+  box-shadow: 0 6px 16px rgba(194, 65, 12, 0.28);
+}
+
+/* Teal secondary actions */
+.glass-btn-secondary {
+  background: #ecfdf5;
+  color: #115e59 !important;
+  border: 1px solid #99d6c6;
+  box-shadow: none;
+}
+
+.glass-btn-secondary:hover {
+  background: #ccfbf1;
+  color: #134e4a !important;
+  border-color: #0d9488;
+}
+
+/* Keep destructive actions red */
+.glass-btn-danger {
+  background: #fff1f2;
+  color: #be123c !important;
+  border-color: #fecdd3;
+  box-shadow: none;
+}
+
+.glass-btn-danger:hover {
+  background: #be123c;
+  color: #ffffff !important;
+}
+
+/* Restyled forms and tables */
+.glass-input {
+  background: #fffbf5;
+  border: 1px solid #d6b998;
+  border-radius: 10px;
+  color: #173d3a;
+}
+
+.glass-input:focus {
+  background: #ffffff;
+  border-color: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+select.glass-input option {
+  background: #ffffff;
+  color: #173d3a;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background: #ccfbf1 !important;
+  color: #134e4a !important;
+  padding: 14px;
+  border-bottom: 2px solid #0d9488;
+}
+
+tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #f3e3cf;
+}
+
+tbody tr:nth-child(even) {
+  background: #fff7ed;
+}
+
+tbody tr:hover {
+  background: #ffedd5;
+}
+
+footer {
+  background: #115e59;
+  color: #ffffff !important;
+  border-top: 4px solid #fb923c !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffedd5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0d9488;
+}
